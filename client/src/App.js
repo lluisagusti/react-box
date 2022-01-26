@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./getWeb3";
+import Landing from "./components/landing";
 
 import "./App.css";
 
@@ -15,13 +16,13 @@ class App extends Component {
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
-      console.log('accounts @ componentDidMount ', accounts);
+      // console.log('accounts @ componentDidMount ', accounts);
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      networkId && console.log('networkId', networkId);
+      // networkId && console.log('networkId', networkId);
       const deployedNetwork = SimpleStorageContract.networks[networkId];
-      deployedNetwork && console.log('deployedNetwork', deployedNetwork);
+      // deployedNetwork && console.log('deployedNetwork', deployedNetwork);
       const instance = new web3.eth.Contract(
         SimpleStorageContract.abi,
         deployedNetwork && deployedNetwork.address,
@@ -42,14 +43,14 @@ class App extends Component {
   runExample = async () => {
     // const { accounts, contract } = this.state;
 
-    // Stores a given value, 5 by default.
-    // const currentContract = await contract.methods.set(5).send({ from: accounts[0] });
-    // currentContract && console.log('currentContract @ runExample ', currentContract);
+    // // Stores a given value, 5 by default.
+    // await contract.methods.set(0).send({ from: accounts[0] });
+    // // currentContract && console.log('currentContract @ runExample ', currentContract);
 
-    // Get the value from the contract to prove it worked.
+    // // Get the value from the contract to prove it worked.
     // const response = await contract.methods.get().call();
 
-    // Update state with the result.
+    // // Update state with the result.
     // this.setState({ storageValue: response });
   };
 
@@ -71,6 +72,7 @@ class App extends Component {
         </p> */}
         {/* <div>The stored value is: {this.state.storageValue}</div> */}
         <div>Your address is: {this.state.accounts}</div>
+        {this.state.accounts && (<Landing account={this.state.accounts}/>)}
       </div>
     );
   }
